@@ -1,0 +1,54 @@
+!
+! Respaldo de configuracion del router de la sede principal
+! Archivo de ejemplo para la demo de FTP y TFTP (Grupo 1, Redes)
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R-SEDE-PRINCIPAL
+!
+enable secret 5 $1$Gr1o$EjemploDeHashNoReal.
+!
+ip dhcp excluded-address 192.168.10.1 192.168.10.20
+!
+ip dhcp pool LAN-SEDE
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8
+!
+ip domain-name grupo1.redes
+!
+interface GigabitEthernet0/0
+ description Enlace hacia el ISP
+ ip address 200.10.20.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description Red LAN de la sede
+ ip address 192.168.10.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+ip route 0.0.0.0 0.0.0.0 200.10.20.1
+!
+line con 0
+ password cisco
+ login
+line vty 0 4
+ password cisco
+ login
+ transport input ssh
+!
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+! linea de relleno para llegar a 1300 bytes
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+end

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FTP y TFTP en vivo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2321493a'/%3E%3Cpath d='M6 12h17l-4-4M26 21H9l4 4' stroke='%23f1efe4' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preload" href="/static/fonts/klee-one-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/styles.css?v=13">
+</head>
+<body>
+  <!-- íconos: una sola familia de trazo, 24x24, trazo 2 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7.5 5.2v13.6a.8.8 0 0 0 1.2.7l10.6-6.8a.8.8 0 0 0 0-1.4L8.7 4.5a.8.8 0 0 0-1.2.7z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8.5 5.5v13M15.5 5.5v13"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5"/></symbol>
+    <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><i></i><i></i></div>
+      <div>
+        <h1>FTP y TFTP <span>a corazón abierto</span></h1>
+        <p>Grupo 1 · Redes — cada paquete que cruza el cable, en vivo</p>
+      </div>
+    </div>
+
+    <nav class="tabs" role="tablist" aria-label="Protocolo">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="ftp">FTP <small>TCP · 21</small></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="tftp">TFTP <small>UDP · 69</small></button>
+    </nav>
+
+    <div class="toolbar">
+      <div class="segmented" id="mode" role="group" aria-label="Modo">
+        <button data-mode="auto" class="on" aria-pressed="true">Automático</button>
+        <button data-mode="step" aria-pressed="false">Paso a paso</button>
+      </div>
+      <label class="select">
+        <span>Velocidad</span>
+        <select id="speed" aria-label="Velocidad">
+          <option value="fast">Rápida</option>
+          <option value="normal" selected>Normal</option>
+          <option value="slow">Lenta</option>
+        </select>
+      </label>
+      <button class="btn ghost" id="cancel" disabled>Cancelar</button>
+      <button class="btn ghost" id="clear">Limpiar</button>
+      <button class="btn ghost icon-only" id="theme" title="Cambiar a pizarra blanca" aria-label="Cambiar a pizarra blanca">
+        <svg class="icon" aria-hidden="true"><use href="#i-theme"/></svg>
+      </button>
+      <span class="live" id="live" role="status"><i></i><b>Conectando…</b></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="side">
+      <!-- controles ftp -->
+      <section class="panel controls" data-proto="ftp" aria-label="Cliente FTP">
+        <div class="panel-head">
+          <h2>Cliente FTP</h2>
+          <span class="pill off" id="ftp-status">Desconectado</span>
+        </div>
+        <p class="hint">TCP. Usa dos conexiones: el puerto 21 para los comandos y otro puerto para los datos.</p>
+        <button class="btn primary wide" data-action="ftp.demo">
+          <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>Demo completa
+        </button>
+
+        <ol class="steps">
+          <li><span class="num">1</span>
+            <button class="btn" data-action="ftp.connect">Conectar</button>
+          </li>
+          <li><span class="num">2</span>
+            <div class="stack">
+              <div class="pair">
+                <input id="ftp-user" value="alumno" aria-label="Usuario" spellcheck="false" autocomplete="off">
+                <input id="ftp-pass" value="redes2026" aria-label="Contraseña" spellcheck="false" autocomplete="off">
+              </div>
+              <button class="btn" data-action="ftp.login">Iniciar sesión</button>
+            </div>
+          </li>
+          <li><span class="num">3</span>
+            <button class="btn" data-action="ftp.list">Listar archivos <code>LIST</code></button>
+          </li>
+          <li><span class="num">4</span>
+            <div class="stack">
+              <input id="ftp-file" value="config-router.txt" aria-label="Archivo a descargar" spellcheck="false" autocomplete="off">
+              <button class="btn" data-action="ftp.download">Descargar <code>RETR</code></button>
+            </div>
+          </li>
+          <li><span class="num">5</span>
+            <div class="stack">
+              <div class="pair">
+                <input id="ftp-up-name" value="subida-ftp.txt" aria-label="Nombre del archivo a subir" spellcheck="false" autocomplete="off">
+                <select id="ftp-up-size" aria-label="Tamaño del archivo a subir">
+                  <option value="small">pequeño</option>
+                  <option value="medium">1300 B</option>
+                  <option value="exact">1024 B</option>
+                </select>
+              </div>
+              <button class="btn" data-action="ftp.upload">Subir <code>STOR</code></button>
+            </div>
+          </li>
+          <li><span class="num">6</span>
+            <button class="btn" data-action="ftp.quit">Cerrar sesión <code>QUIT</code></button>
+          </li>
+        </ol>
+
+        <div class="raw">
+          <input id="ftp-raw" placeholder="Comando libre: SYST, PWD, HELP…" aria-label="Comando FTP manual" spellcheck="false" autocomplete="off">
+          <button class="btn" data-action="ftp.raw">Enviar</button>
+        </div>
+        <p class="hint">Prueba una contraseña incorrecta para ver el <code>530</code>.</p>
+      </section>
+
+      <!-- controles tftp -->
+      <section class="panel controls" data-proto="tftp" aria-label="Cliente TFTP" hidden>
+        <div class="panel-head">
+          <h2>Cliente TFTP</h2>
+          <span class="pill neutral">Sin sesión</span>
+        </div>
+        <p class="hint">UDP. Sin usuario, sin contraseña y sin listado: hay que saber el nombre exacto del archivo.</p>
+
+        <div class="block">
+          <h3>Descargar</h3>
+          <div class="stack">
+            <input id="tftp-file" value="config-router.txt" aria-label="Archivo a descargar" spellcheck="false" autocomplete="off">
+            <div class="chips">
+              <button class="chip" data-file="config-router.txt">config-router.txt <small>1300 B</small></button>
+              <button class="chip" data-file="justo-1024.txt">justo-1024.txt <small>1024 B</small></button>
+              <button class="chip" data-file="no-existe.txt">no-existe.txt</button>
+            </div>
+            <label class="check">
+              <input type="checkbox" id="tftp-lose">
+              <span>Simular que se pierde el ACK del bloque 2</span>
+            </label>
+            <button class="btn primary" data-action="tftp.download">
+              <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>Descargar <code>RRQ</code>
+            </button>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Subir</h3>
+          <div class="stack">
+            <div class="pair">
+              <input id="tftp-up-name" value="subida-tftp.txt" aria-label="Nombre del archivo a subir" spellcheck="false" autocomplete="off">
+              <select id="tftp-up-size" aria-label="Tamaño del archivo a subir">
+                <option value="small">pequeño</option>
+                <option value="medium">1300 B</option>
+                <option value="exact">1024 B</option>
+              </select>
+            </div>
+            <button class="btn" data-action="tftp.upload">Subir <code>WRQ</code></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel log-panel" aria-label="Bitácora del cliente">
+        <h2>Bitácora del cliente</h2>
+        <ol class="log" id="log" data-empty="Aquí el cliente va contando lo que razona en cada paso."></ol>
+      </section>
+    </aside>
+
+    <section class="wire panel" aria-label="Paquetes en el cable">
+      <div class="wire-bar">
+        <div class="legend" id="legend"></div>
+        <div class="toggles">
+          <label class="check small"><input type="checkbox" id="show-acks" checked><span>ACKs de TCP</span></label>
+          <label class="check small"><input type="checkbox" id="show-explain" checked><span>Explicaciones</span></label>
+        </div>
+      </div>
+
+      <div class="board" id="board">
+        <div class="wire-scroll" data-proto="ftp">
+          <div class="heads"><div class="heads-inner"></div></div>
+          <div class="timeline">
+            <div class="lifelines" aria-hidden="true"></div>
+            <div class="empty">Empieza con <b>Demo completa</b> o sigue los pasos 1 a 6 del cliente FTP.</div>
+          </div>
+        </div>
+        <div class="wire-scroll" data-proto="tftp" hidden>
+          <div class="heads"><div class="heads-inner"></div></div>
+          <div class="timeline">
+            <div class="lifelines" aria-hidden="true"></div>
+            <div class="empty">Elige un archivo y pulsa <b>Descargar RRQ</b>.</div>
+          </div>
+        </div>
+
+        <div class="eraser" aria-hidden="true"></div>
+      </div>
+
+      <div class="waiting" id="waiting" role="status" hidden>
+        <svg class="icon pause" aria-hidden="true"><use href="#i-pause"/></svg>
+        <div class="waiting-text"><small>Próximo paso</small><b id="waiting-label"></b></div>
+        <span class="keyhint">o flecha derecha</span>
+        <button class="btn primary" id="next">Siguiente<svg class="icon" aria-hidden="true"><use href="#i-next"/></svg></button>
+      </div>
+
+      <footer class="stats" id="stats"></footer>
+    </section>
+
+    <aside class="inspector panel" aria-label="Inspector de paquete">
+      <div class="panel-head">
+        <h2>Inspector de paquete</h2>
+        <button class="btn ghost small on" id="follow" title="Mostrar siempre el último paquete">En vivo</button>
+      </div>
+      <div class="insp-body insp-empty" id="insp-body">
+        Haz clic en cualquier flecha para abrir el paquete capa por capa, hasta el último byte.
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="alert" hidden></div>
+  <script src="/static/app.js?v=13"></script>
+</body>
+</html>

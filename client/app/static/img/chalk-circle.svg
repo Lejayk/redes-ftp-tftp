@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" width="200" height="48" preserveAspectRatio="none">
+  <!-- origen: dibujado a mano para este proyecto.
+       el círculo que hace el profe alrededor de lo importante: no cierra parejo
+       y la punta se pasa del comienzo. -->
+  <path d="M14 30 C6 15 52 5 102 5 S194 10 194 24 S152 44 98 44 S6 41 8 24 S38 8 66 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M20 33 C14 21 56 10 104 10 S188 14 189 25" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
+</svg>

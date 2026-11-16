@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" preserveAspectRatio="none">
+  <!-- origen: dibujado a mano para este proyecto.
+       el fantasma de marcador que queda en toda pizarra blanca usada:
+       restos de flechas y un recuadro mal borrados, casi invisibles. -->
+  <g fill="none" stroke="#1c2328" stroke-linecap="round" stroke-linejoin="round" opacity=".05">
+    <path d="M120 150 C300 140 480 156 640 146 M620 132 L644 146 L620 160" stroke-width="5"/>
+    <path d="M980 320 C820 330 660 316 520 326 M540 312 L518 326 L540 340" stroke-width="5"/>
+    <path d="M300 520 h260 v120 h-260 z" stroke-width="4"/>
+    <path d="M760 600 C850 560 930 640 1020 590" stroke-width="6"/>
+    <path d="M140 700 C260 690 380 706 470 696" stroke-width="4"/>
+  </g>
+</svg>

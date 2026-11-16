@@ -1,0 +1,9 @@
+# todo llega con LF a cualquier clon, también en windows:
+# start.sh se rompe con CRLF y los archivos de ejemplo tienen tamaños exactos (1300 y 1024 bytes)
+* text=auto eol=lf
+
+# los .bat de windows sí necesitan CRLF
+*.bat text eol=crlf
+
+*.woff2 binary
+*.jpg binary

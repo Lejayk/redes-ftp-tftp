@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 14" width="160" height="14" preserveAspectRatio="none">
+  <!-- origen: dibujado a mano para este proyecto, sin ruido generado.
+       el mismo trazo de tiza, cortado en tramos: así marca el profe lo que falló. -->
+  <g fill="none" stroke="#fff" stroke-linecap="round">
+    <path d="M2 6.5 C8 6.1 14 6.7 20 6.3 M34 6.2 C41 5.9 47 6.6 54 6.3 M68 6.6 C75 6.1 81 6.8 88 6.4 M102 6.2 C109 5.9 115 6.6 122 6.3 M136 6.5 C143 6.1 149 6.7 156 6.4" stroke-width="3.4" opacity=".95"/>
+    <path d="M3 8 C10 8.3 15 7.7 21 8.1 M35 7.9 C42 8.2 48 7.7 53 8 M69 8.1 C76 8.4 82 7.8 87 8.1 M103 7.8 C110 8.2 116 7.7 121 8 M137 8 C144 8.4 150 7.8 155 8.1" stroke-width="1.8" opacity=".75"/>
+    <path d="M4 4.9 C10 4.6 15 5.1 19 4.8 M70 4.8 C76 4.5 81 5 86 4.7 M138 5 C144 4.7 149 5.2 154 4.9" stroke-width="1.1" opacity=".6"/>
+  </g>
+</svg>

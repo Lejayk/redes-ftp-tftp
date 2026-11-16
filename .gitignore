@@ -1,0 +1,10 @@
+# python
+__pycache__/
+*.pyc
+
+# configuración local del editor y de las herramientas de cada uno
+.claude/
+
+# archivos que suben las demos de FTP y TFTP
+ftp-server/files/subida-*
+tftp-server/files/subida-*

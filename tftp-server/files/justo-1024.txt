@@ -1,0 +1,20 @@
+Este archivo mide exactamente 1024 bytes.
+
+1024 / 512 = 2 bloques llenos de TFTP. Como el ultimo bloque lleno
+no puede avisar que es el final, el servidor tiene que mandar un
+tercer bloque DATA con 0 bytes. Solo asi el cliente sabe que termino.
+
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+relleno relleno relleno relleno relleno relleno relleno relleno
+.....
+fin

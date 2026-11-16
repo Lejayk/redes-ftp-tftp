@@ -1,0 +1,65 @@
+name: redes-ftp-tftp
+
+# three machines on one private network:
+#   client       10.10.10.10  -> web panel + hand-written clients + packet capture
+#   ftp-server   10.10.10.21  -> pyftpdlib
+#   tftp-server  10.10.10.69  -> tftp-hpa
+services:
+  ftp-server:
+    build:
+      context: ./ftp-server
+      network: host
+    container_name: ftp-server
+    hostname: ftp-server
+    init: true
+    volumes:
+      - ./ftp-server/files:/srv/ftp
+    networks:
+      lab:
+        ipv4_address: 10.10.10.21
+
+  tftp-server:
+    build:
+      context: ./tftp-server
+      # descarga paquetes con la red de wsl: la red puente de docker se cuelga con archivos grandes
+      network: host
+    container_name: tftp-server
+    hostname: tftp-server
+    init: true
+    volumes:
+      - ./tftp-server/files:/srv/tftp
+    networks:
+      lab:
+        ipv4_address: 10.10.10.69
+
+  client:
+    build:
+      context: ./client
+      network: host
+    container_name: client
+    hostname: client
+    init: true
+    environment:
+      CLIENT_IP: 10.10.10.10
+      FTP_HOST: 10.10.10.21
+      TFTP_HOST: 10.10.10.69
+      CAPTURE_IFACE: eth0
+    # raw sockets to read every frame that crosses the client's network card
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ftp-server
+      - tftp-server
+    networks:
+      lab:
+        ipv4_address: 10.10.10.10
+
+networks:
+  lab:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24

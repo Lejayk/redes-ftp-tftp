@@ -1,0 +1,3 @@
+Bienvenido al servidor FTP del Grupo 1.
+
+Este archivo viaja por el canal de datos, no por el canal de control.

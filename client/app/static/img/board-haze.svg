@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" preserveAspectRatio="xMidYMid slice">
+  <!-- origen: dibujado a mano para este proyecto, sin ruido generado.
+       la huella del borrador (kesu-ato) que nunca se va de un pizarrón usado:
+       pasadas del ancho del fieltro con bordes casi paralelos y desparejos,
+       arcos cortos de girar el brazo y una pasada en zigzag de arriba abajo. -->
+  <g fill="#fff">
+    <!-- pasada horizontal larga, arriba -->
+    <path d="M58 132 L190 127 L318 131 L452 125 L590 130 L702 127 L706 176 L588 180 L455 174 L320 181 L188 176 L56 182 Z" opacity=".04"/>
+    <!-- pasada horizontal al medio, empieza más a la derecha -->
+    <path d="M236 418 L372 413 L505 419 L640 412 L782 418 L914 414 L1046 420 L1050 468 L912 463 L783 470 L638 462 L506 469 L370 463 L233 470 Z" opacity=".035"/>
+    <!-- arco corto de girar el brazo, abajo a la izquierda -->
+    <path d="M96 640 C170 600 262 578 356 574 L362 622 C276 626 196 646 128 684 Z" opacity=".035"/>
+    <path d="M370 572 C430 571 486 578 538 590 L528 638 C480 627 428 621 374 621 Z" opacity=".03"/>
+    <!-- zigzag de arriba abajo, del lado derecho -->
+    <path d="M992 70 L1040 66 L1092 150 L1046 156 Z M1046 156 L1092 150 L1040 238 L996 232 Z M996 232 L1040 238 L1096 322 L1050 328 Z M1050 328 L1096 322 L1044 410 L1000 404 Z" opacity=".03"/>
+    <!-- restos cortos donde el borrador no llegó a pasar parejo -->
+    <path d="M770 650 L862 646 L866 668 L772 673 Z" opacity=".035"/>
+    <path d="M512 248 L578 245 L580 262 L514 265 Z" opacity=".03"/>
+  </g>
+</svg>
